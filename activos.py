@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from io import BytesIO
 
 # Cargar datos por el usuario
 st.set_page_config("Dashboard de Pagos", layout="wide")
@@ -64,6 +65,20 @@ if archivo:
     fig3 = px.line(df_temporal, x="Fecha", y="Monto", labels={"Monto": "Monto Diario"})
     st.plotly_chart(fig3, use_container_width=True)
 
+    # Tabla detallada
+    st.subheader("📋 Tabla Detallada de Pagos Filtrados")
+    df_ordenado = df_filtrado.sort_values("Fecha")
+    st.dataframe(df_ordenado, use_container_width=True)
+
+    # Botón de descarga
+    st.download_button(
+        label="📥 Descargar datos filtrados en Excel",
+        data=BytesIO(df_ordenado.to_excel(index=False, engine='xlsxwriter')),
+        file_name="pagos_filtrados.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
     st.caption("Desarrollado por ChatGPT para análisis de pagos.")
 else:
     st.info("Por favor, sube un archivo Excel para comenzar.")
+
