@@ -70,10 +70,18 @@ if archivo:
     df_ordenado = df_filtrado.sort_values("Fecha")
     st.dataframe(df_ordenado, use_container_width=True)
 
-    # Botón de descarga
+    # Botón de descarga corregido
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        df_ordenado.to_excel(writer, index=False, sheet_name="Pagos Filtrados")
+    output.seek(0)
+
     st.download_button(
         label="📥 Descargar datos filtrados en Excel",
-        data=BytesIO(df_ordenado.to_excel(index=False, engine='xlsxwriter')),
+        data=output,
+        file_name="pagos_filtrados.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )),
         file_name="pagos_filtrados.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
