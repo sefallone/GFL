@@ -79,7 +79,7 @@ if archivo:
     st.download_button(
         label="📥 Descargar datos filtrados en Excel",
         data=output,
-        file_name="pagos_filtrados.xlsx",
+        file_name="pagos_filtrados_copia.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         file_name="pagos_filtrados.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
