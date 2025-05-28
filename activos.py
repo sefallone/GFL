@@ -88,4 +88,3 @@ if archivo:
     st.caption("Desarrollado por ChatGPT para análisis de pagos.")
 else:
     st.info("Por favor, sube un archivo Excel para comenzar.")
-
